@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 WORKDIR /tgtk
-RUN chmod -R 777 /tgtk
+RUN chmod -R 777 /tk
 RUN apt-get -qq update
 ENV TZ Asia/Kolkata
 ENV DEBIAN_FRONTEND noninteractive
