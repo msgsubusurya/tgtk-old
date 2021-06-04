@@ -1,3 +1,3 @@
-FROM dakshkohli23/tgtk:latest
+FROM dakshkohli23/tk:latest
 WORKDIR /tgtk
 COPY . .
