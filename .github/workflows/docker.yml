@@ -12,5 +12,5 @@ jobs:
     - name: Build the Docker image
       run: |
        echo "${{ secrets.DOCKERPASS }}" | docker login -u "${{ secrets.DOCKERUSER }}" --password-stdin
-       docker build -t dakshkohli23/tgtk:latest .
-       docker push dakshkohli23/tgtk:latest
+       docker build -t dakshkohli23/tk:latest .
+       docker push dakshkohli23/tk:latest
