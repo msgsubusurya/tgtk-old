@@ -65,7 +65,7 @@ class QBTask(Status):
         msg = "<b>━━┫ Downloading 📥 ┣━━</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>\n🔻 Download:</b> {}\n <b>🔺 Upload:</b> {}\n".format(
+        msg += "<b>\n🔻 Download:</b> {}\n<b>🔺 Upload:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
