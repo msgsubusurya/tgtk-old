@@ -20,11 +20,11 @@ TIMEOUT_SEC = 60
 # this file will contian all the handlers and code for settings
 # code can be more modular i think but not bothering now
 # todo make the code more modular
-no = "✖"
-yes = "✔"
+no = "❌"
+yes = "✅"
 # Central object is not used its Acknowledged 
 tordb = tkdb()
-header =  '<b>tgtk - a telegram leecher bot.\n</b>\n<u>user settings menu</u>'
+header =  '<b>TGTK - Telegram Leech Bot.\n</b>\n<u>user settings menu</u>'
 async def handle_user_setting_callback(e):
     db = tordb
     sender_id = str(e.sender_id)
@@ -217,7 +217,7 @@ async def general_input_manager(e,mmes,var_name,datatype,value,sender_id,sub_men
                             #SessionVars.update_var("LEECH_ENABLED",True)
                         except Exception:
                             torlog.error(traceback.format_exc())
-                            await handle_user_settings(mmes,True,f"<b><u>the configuration file is invalid, check logs.</b></u>",sub_menu)
+                            await handle_user_settings(mmes,True,f"<b><u>The configuration file is invalid, check logs.</b></u>",sub_menu)
                             return
                     elif var_name == "THUMBNAIL":
                         try:
@@ -232,22 +232,22 @@ async def general_input_manager(e,mmes,var_name,datatype,value,sender_id,sub_men
                             os.remove(value)
                         except Exception:
                             torlog.error(traceback.format_exc())
-                            await handle_user_settings(mmes,True,f"<b><u>an error occured with the thumbnail you sent.</b></u>",sub_menu)
+                            await handle_user_settings(mmes,True,f"<b><u>An Error occured with the Thumbnail you sent.</b></u>",sub_menu)
                             return
                     else:
                         user_db.set_var(var_name, value, e.sender_id)
                         #db.set_variable(var_name,value)
                         #SessionVars.update_var(var_name,value)
                     
-                    await handle_user_settings(mmes,True,f"<b><u>received {var_name} value '{value}' with confirm.</b></u>",sub_menu, sender_id=sender_id)
+                    await handle_user_settings(mmes,True,f"<b><u>Received {var_name} value '{value}' with confirm.</b></u>",sub_menu, sender_id=sender_id)
                 except ValueError:
-                    await handle_user_settings(mmes,True,f"<b><u>value [{value}] not valid try again and enter {datatype}.</b></u>",sub_menu, sender_id=sender_id)    
+                    await handle_user_settings(mmes,True,f"<b><u>Value [{value}] not valid try again and enter {datatype}.</b></u>",sub_menu, sender_id=sender_id)    
             else:
-                await handle_user_settings(mmes,True,f"<b><u>confirm differed by user.</b></u>",sub_menu, sender_id=sender_id)
+                await handle_user_settings(mmes,True,f"<b><u>Confirm differed by User.</b></u>",sub_menu, sender_id=sender_id)
         else:
-            await handle_user_settings(mmes,True,f"<b><u>confirm timed out [waited 60s for input].</b></u>",sub_menu, sender_id=sender_id)
+            await handle_user_settings(mmes,True,f"<b><u>Confirm Timed Out [waited 60s for input].</b></u>",sub_menu, sender_id=sender_id)
     else:
-        await handle_user_settings(mmes,True,f"<b><u>entry timed out [waited 60s for input].</b></u>",sub_menu, sender_id=sender_id)
+        await handle_user_settings(mmes,True,f"<b><u>Entry Timed Out [waited 60s for input].</b></u>",sub_menu, sender_id=sender_id)
 
 
 async def get_value(e,file=False,photo=False):
@@ -348,7 +348,7 @@ async def get_confirm_callback(e,o_sender,lis):
 
 async def confirm_buttons(e,val):
     # add the confirm buttons at the bottom of the message
-    await e.edit(f"confirm the input : <u>{val}</u>",buttons=[KeyboardButtonCallback("yes","confirmsetting true"),KeyboardButtonCallback("no","confirmsetting false")],parse_mode="html")
+    await e.edit(f"confirm the input : <u>{val}</u>",buttons=[KeyboardButtonCallback("Yes","confirmsetting true"),KeyboardButtonCallback("No","confirmsetting false")],parse_mode="html")
 
 async def get_bool_variable(var_name,msg,menu,callback_name,sender_id):
     # handle the vars having bool values
