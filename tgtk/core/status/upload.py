@@ -82,7 +82,7 @@ class TGUploadTask(Status):
             prg = self._uploaded_files/self._files
 
         except ZeroDivisionError:pass
-        msg += "<b>📡  Progress:</b> {} - {}%\n".format(
+        msg += "<b>📡  Progress:</b> 【{}】 - {}%\n".format(
             self.progress_bar(prg),
             prg*100
         )
@@ -90,7 +90,7 @@ class TGUploadTask(Status):
             self._uploaded_files,
             self._files
         )
-        msg += "<b>💠 Using Engine:- </b> <code>[ TG Upload ]</code>\n"
+        msg += "<b>\n💠 Using Engine:- </b> <code>[ TG Upload ]</code>\n"
         return msg
 
     def progress_bar(self, percentage):
