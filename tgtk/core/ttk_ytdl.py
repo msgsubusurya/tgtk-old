@@ -65,7 +65,7 @@ async def get_yt_link_details(url: str) -> Union[Dict[str,str], None]:
     try:
         return json.loads(out)[0], None
     except:
-        torlog.exception("an error occured while parsing the json.\n")
+        torlog.exception("Error occured while parsing the json.\n")
         return None, error
 
 async def get_max_thumb(data: dict, suid: str) -> str:
@@ -102,7 +102,7 @@ async def create_quality_menu(url: str,message: MessageLike, message1: MessageLi
         f.write(json.dumps(data).decode("UTF-8"))
 
     if data is None:
-        await message.edit("error failed parsing.")
+        await message.edit("Error Failed Parsing.")
         return None, err
     else:
         unique_formats = dict()
@@ -154,16 +154,16 @@ async def create_quality_menu(url: str,message: MessageLike, message1: MessageLi
         
 async def handle_ytdl_command(e: MessageLike):
     if not e.is_reply:
-        await e.reply("reply to a youtube video link.")
+        await e.reply("Reply To a YouTube Video Link.")
         return
     msg = await e.get_reply_message()
-    msg1 = await e.reply("processing the given link.....")
+    msg1 = await e.reply("🌀 Processing...")
     if msg.text.find("http") != -1:
         res, err = await create_quality_menu(msg.text.strip(),msg1,msg)
         if res is None:
-            await msg1.edit(f"<code>invalid link provided.\n{err}</code>",parse_mode="html")
+            await msg1.edit(f"<code>Invalid link provided.\n{err}</code>",parse_mode="html")
     else:
-        await e.reply("invalid link provided.")
+        await e.reply("Invalid link provided.")
 
 async def handle_ytdl_callbacks(e: MessageLike):
     data = e.data.decode("UTF-8")
@@ -171,7 +171,7 @@ async def handle_ytdl_callbacks(e: MessageLike):
     
     if data[0] == "ytdlsmenu":
         if data[2] != str(e.sender_id):
-            await e.answer("this isn't yours.")
+            await e.answer("🚫 Not valid user, Dont touch.")
             return
         
         path = os.path.join(os.getcwd(),'userdata',data[3]+".json")
@@ -207,17 +207,17 @@ async def handle_ytdl_callbacks(e: MessageLike):
                         buttons.append([KeyboardButtonCallback(text,cdata.encode("UTF-8"))])
                         j+=1
                 
-                buttons.append([KeyboardButtonCallback("Go Back",f"ytdlmmenu|{data[2]}|{data[3]}")])
-                await e.edit(f"files for quality {data[1]}, at the end it is the video codec. mostly prefer the last one with you desired extension if you want streamable video.",buttons=buttons)
+                buttons.append([KeyboardButtonCallback("Go Back 😒",f"ytdlmmenu|{data[2]}|{data[3]}|{data[4]}")])
+                await e.edit(f"Files for quality {data[1]}, at the end it is the Video Codec. Mostly prefer the last one with you desired extension if you want streamable video. Try rest if you want.",buttons=buttons)
                 
 
 
         else:
-            await e.answer("try again, something went wrong.",alert=True)
+            await e.answer("Try Again Something Went Wrong 😖.",alert=True)
             await e.delete()
     elif data[0] == "ytdlmmenu":
         if data[1] != str(e.sender_id):
-            await e.answer("this isn't yours.")
+            await e.answer("🚫 Not valid user, Dont touch.")
             return
         path = os.path.join(os.getcwd(),'userdata',data[2]+".json")
         if os.path.exists(path):
@@ -226,7 +226,7 @@ async def handle_ytdl_callbacks(e: MessageLike):
                 await create_quality_menu("",await e.get_message(),e,ytdata,data[2])
 
         else:
-            await e.answer("try again, something went wrong.",alert=True)
+            await e.answer("Try Again Something Went Wrong 😖.",alert=True)
             await e.delete()
 
 async def handle_ytdl_file_download(e: MessageLike):
@@ -237,10 +237,10 @@ async def handle_ytdl_file_download(e: MessageLike):
     
     
     if data[2] != str(e.sender_id):
-        await e.answer("this isn't yours.")
+        await e.answer("🚫 Not valid user, Dont touch.")
         return
     else:
-        await e.answer("crunching data.....")
+        await e.answer("Crunching Data.....")
     
     await e.edit(buttons=None)
 
@@ -300,9 +300,9 @@ async def handle_ytdl_file_download(e: MessageLike):
                 omess = await e.get_message()
                 omess1 = await omess.get_reply_message()
                 if "HTTP Error 429" in err:
-                    emsg = "http error 429: too many requests, try after a while."
+                    emsg = "HTTP Error 429: Too many requests try after a while."
                 else:
-                    emsg = "an error has occured. trying to upload any files that are found here."
+                    emsg = "An error has occured trying to upload any files that are found here."
                 await omess.edit(emsg)
                 if omess1 is None:
                     await omess.respond(emsg)
@@ -321,28 +321,28 @@ async def handle_ytdl_file_download(e: MessageLike):
 
     else:
         await e.delete()
-        await e.answer("try again, something went wrong.",alert=True)
+        await e.answer("Try again something went wrong.",alert=True)
         await e.delete()
 
 async def handle_ytdl_playlist(e: MessageLike) -> None:
     if not e.is_reply:
-        await e.reply("reply to a youtube playlist link.")
+        await e.reply("Reply to a youtube playlist link.")
         return
     url = await e.get_reply_message()
     url = url.text.strip()
     cmd = f"youtube-dl -i --flat-playlist --dump-single-json {url}"
     
-    msg = await e.reply("processing your youtube playlist download request..")
+    msg = await e.reply("Processing your Youtube Playlist download request..")
 
     # cancel the playlist if time exceed 5 mins
     try:
         out, err = await asyncio.wait_for(cli_call(cmd),300)
     except asyncio.TimeoutError:
-        await msg.edit("processing time exceeded... the playlist seem to long to be worked with\n if the playlist is short and you think its error report back.")
+        await msg.edit("Processing time exceeded... The playlist seem to long to be worked with 😢\n If the playlist is short and you think its error report back.")
         return
     
     if err:
-        await msg.edit(f"failed to load the playlist with the error: <code>{err}</code>",parse_mode="html")
+        await msg.edit(f"Failed to load the playlist with the error:- <code>{err}</code>",parse_mode="html")
         return
     
 
@@ -350,7 +350,7 @@ async def handle_ytdl_playlist(e: MessageLike) -> None:
         pldata = json.loads(out)
         entities = pldata.get("entries")
         if len(entities) <= 0:
-            await msg.edit("cannot load the videos from this playlist, ensure that the playlist is not <code>'My Mix or Mix'</code>. It should be a public or unlisted youtube playlist.")
+            await msg.edit("Cannot load the videos from this playlist ensure that the playlist is not <code>'My Mix or Mix'</code>. It shuold be a public or unlisted youtube playlist.")
             return
 
         entlen = len(entities)
@@ -359,7 +359,7 @@ async def handle_ytdl_playlist(e: MessageLike) -> None:
         # limit the max vids
         if entlen > get_val("MAX_YTPLAYLIST_SIZE"):
 
-            await msg.edit(f"playlist too large max {get_val('MAX_YTPLAYLIST_SIZE')} vids allowed as of now. This has {entlen}")
+            await msg.edit(f"Playlist too large max {get_val('MAX_YTPLAYLIST_SIZE')} vids allowed as of now. This has {entlen}")
             return
 
 
@@ -372,11 +372,11 @@ async def handle_ytdl_playlist(e: MessageLike) -> None:
         keybr.append([KeyboardButtonCallback(text=f"Best All videos",data=f"ytdlplaylist|best|{suid}|{e.sender_id}")])
         
         
-        keybr.append([KeyboardButtonCallback(text="best all audio only. [340k]",data=f"ytdlplaylist|320k|{suid}|{e.sender_id}")])
-        keybr.append([KeyboardButtonCallback(text="medium all audio only. [128k]",data=f"ytdlplaylist|128k|{suid}|{e.sender_id}")])
-        keybr.append([KeyboardButtonCallback(text="worst all audio only. [64k]",data=f"ytdlplaylist|64k|{suid}|{e.sender_id}")])
+        keybr.append([KeyboardButtonCallback(text="Best all audio only. [340k]",data=f"ytdlplaylist|320k|{suid}|{e.sender_id}")])
+        keybr.append([KeyboardButtonCallback(text="Medium all audio only. [128k]",data=f"ytdlplaylist|128k|{suid}|{e.sender_id}")])
+        keybr.append([KeyboardButtonCallback(text="Worst all audio only. [64k]",data=f"ytdlplaylist|64k|{suid}|{e.sender_id}")])
 
-        await msg.edit(f"found {entlen} videos in the playlist.",buttons=keybr) 
+        await msg.edit(f"Found {entlen} videos in the playlist.",buttons=keybr) 
 
         path = os.path.join(os.getcwd(),'userdata')
         
@@ -389,8 +389,8 @@ async def handle_ytdl_playlist(e: MessageLike) -> None:
             file.write(json.dumps(pldata).decode("UTF-8"))
 
     except:
-        await msg.edit("failed to parse the playlist. check logs for any error messages.")
-        torlog.exception("playlist parse failed") 
+        await msg.edit("Failed to parse the playlist. Check log if you think its error.")
+        torlog.exception("Playlist Parse failed") 
 
 async def handle_ytdl_playlist_down(e: MessageLike) -> None:
     # ytdlplaylist | quality | suid | sender_id
@@ -438,8 +438,8 @@ async def handle_ytdl_playlist_down(e: MessageLike) -> None:
         os.remove(path)
     else:
         await e.delete()
-        await e.answer("something went wrong, try again.",alert=True)
-        torlog.error("the file for that suid was not found.")
+        await e.answer("Something went wrong try again.",alert=True)
+        torlog.error("The file for that suid was not found.")
 
 async def print_files(e,files):
     
