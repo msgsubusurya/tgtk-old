@@ -672,10 +672,10 @@ async def handle_server_command(message):
 
     if callbk:
         msg = (
-            f"<b>🤖 Bot Uptime</b> {diff}\n\n"
-            "<b>➜ CPU stats:</b>\n"
+            f"<b>🤖 Bot Uptime:</b> {diff}\n\n"
+            "<b>➜ CPU Stats:</b>\n"
             f"➜ Cores: {cores} Logical: {lcores}\n"
-            f"➜ CPU Frequency: {freqcurrent}  mhz max: {freqmax}\n"
+            f"➜ CPU Frequency: {freqcurrent} <b>mhz max:</b> {freqmax}\n"
             f"➜ CPU Utilization: {cpupercent}%\n"
             "\n"
             "<b>🛢️ Storage Stats:</b>\n"
@@ -711,7 +711,7 @@ async def handle_server_command(message):
             f"🔻 Transfer Download: {dlb}\n"
             f"🔺 Transfer Upload: {upb}\n"
         )
-        await message.reply(msg, parse_mode="html", buttons=[[KeyboardButtonCallback("get detailed stats.","fullserver")]])
+        await message.reply(msg, parse_mode="html", buttons=[[KeyboardButtonCallback("📊 Detailed Stats.","fullserver")]])
 
 
 async def about_me(message):
