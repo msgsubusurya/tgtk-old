@@ -62,38 +62,38 @@ class QBTask(Status):
         return self._omess.sender_id
 
     async def create_message(self):
-        msg = "<b>downloading:</b> <code>{}</code>\n".format(
+        msg = "<b>━━┫ Downloading 📥 ┣━━</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>down:</b> {} <b>up:</b> {}\n".format(
+        msg += "<b>🔻 Downloading Speed:</b> {}\n <b>🔺 Uploading Speed:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
-        msg += "<b>progress:</b> {} - {}%\n".format(
+        msg += "<b>📡  Progress:</b> {} - {}%\n".format(
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
-        msg += "<b>downloaded:</b> {} out of {}\n".format(
+        msg += "<b>🔮 Process:</b> {} of {}\n".format(
             human_readable_bytes(self._torrent.downloaded),
             human_readable_bytes(self._torrent.total_size)
             )
-        msg += "<b>eta:</b> <b>{}</b>\n".format(
+        msg += "<b>⏳ ETA:</b> <b>{}</b>\n".format(
             human_readable_timedelta(self._torrent.eta)
             )
-        msg += "<b>s:</b>{} <b>l:</b>{}\n".format(
+        msg += "<b>🌱 Seeding:</b> {}\n <b>🌱Leeching:</b> {}\n".format(
             self._torrent.num_seeds,self._torrent.num_leechs
             )
-        msg += "<b>using engine:</b> <code>qBittorrent</code>"
+        msg += "<b>💠 Using engine:</b> <code>[ qBittorrent ]</code>"
 
         return msg
 
     async def get_state(self):
         #stalled
         if self._torrent.state == "stalledDL":
-            return"torrent <code>{}</code> stalled (waiting for connection) temporarily.".format(self._torrent.name)
+            return"Torrent <code>{}</code> is stalled(waiting for connection) temporarily.".format(self._torrent.name)
         #meta stage
         elif self._torrent.state == "metaDL":
-            return  "getting metadata for {} - {}".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
+            return  "Getting metadata for {} - {}".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
         elif self._torrent.state == "downloading" or self._torrent.state.lower().endswith("dl"):
             # kept for past ref
             return None
