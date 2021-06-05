@@ -17,11 +17,11 @@ TIMEOUT_SEC = 60
 # this file will contian all the handlers and code for settings
 # code can be more modular i think but not bothering now
 # todo make the code more modular
-no = "✖"
-yes = "✔"
+no = "❌"
+yes = "✅"
 # Central object is not used its Acknowledged 
 tordb = tkdb()
-header =  '<b>tgtk - a telegram leech bot.</b>\n<u>administrator menu</u>'
+header =  '<b>TGTK - Telegram Leech Bot.</b>\n<u>Admin Menu</u>'
 async def handle_setting_callback(e):
     db = tordb
     session_id,_ = db.get_variable("SETTING_AUTH_CODE")
@@ -45,10 +45,10 @@ async def handle_setting_callback(e):
         
         db.set_variable("FORCE_DOCUMENTS",val)
         SessionVars.update_var("FORCE_DOCUMENTS",val)
-        await handle_settings(await e.get_message(),True,f"<b><u>changed the value to {val} of force documents.</b></u>",session_id=session_id)
+        await handle_settings(await e.get_message(),True,f"<b><u>Changed the value to {val} of force documents.</b></u>",session_id=session_id)
     
     elif cmd[1] == "compstr":
-        await e.answer("type the new value for Complete Progress String. note that only one character is expected.",alert=True)
+        await e.answer("Type the new value for Complete Progress String. note that only one character is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -60,7 +60,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "remstr":
         # what will a general manager require
         # anser message, type handler, value 
-        await e.answer("type the new value for Remaining Progress String. note that only one character is expected.",alert=True)
+        await e.answer("Type the new value for Remaining Progress String. note that only one character is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -71,7 +71,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "tguplimit":
         # what will a general manager require
         # anser message, type handler, value 
-        await e.answer("type the new value for TELEGRAM UPLOAD LIMIT. note that an integer is expected.",alert=True)
+        await e.answer("Type the new value for TELEGRAM UPLOAD LIMIT. note that an integer is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -82,7 +82,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "maxtorsize":
         # what will a general manager require
         # answer message, type handler, value 
-        await e.answer("type the new value for MAX TORRENT SIZE. note that integer an is expected.",alert=True)
+        await e.answer("Type the new value for MAX TORRENT SIZE. note that integer an is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -93,7 +93,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "maxytplsize":
         # what will a general manager require
         # answer message, type handler, value 
-        await e.answer("type the new value for MAX PLAYLIST SIZE. note that an integer is expected.",alert=True)
+        await e.answer("Type the new value for MAX PLAYLIST SIZE. note that an integer is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -110,7 +110,7 @@ async def handle_setting_callback(e):
         mmes = await e.get_message()
         await handle_settings(mmes,True,session_id=session_id)
     elif cmd[1] == "rcloneconfig":
-        await e.answer("send the rclone config file which you have generated.",alert=True)
+        await e.answer("Send the rclone config file which you have generated.",alert=True)
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
         val = await get_value(e,True)
@@ -242,9 +242,9 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
 
 
         if edit:
-            rmess = await e.edit(header+"\nit is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
+            rmess = await e.edit(header+"\nIt is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
         else:
-            rmess = await e.reply(header+"\nit is recommended to lock the group before setting vars.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
+            rmess = await e.reply(header+"\nIt is recommended to lock the group before setting vars.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
     elif submenu == "rclonemenu":
         rcval = await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",session_id)
         if rcval != "None":
@@ -278,12 +278,12 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
                             [KeyboardButtonCallback(f"{prev}{j} - ND",f"settings change_drive {j} {session_id}")]
                         )
 
-        await get_sub_menu("go back ⬅️","mainmenu",session_id,menu)
+        await get_sub_menu("Go Back ⬅️","mainmenu",session_id,menu)
         menu.append(
             [KeyboardButtonCallback("close menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
-            rmess = await e.edit(header+"\nit's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
+            rmess = await e.edit(header+"\nIt's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
 
     elif submenu == "ctrlacts":
         await get_bool_variable("RCLONE_ENABLED","enable rclone.",menu,"rcloneenable",session_id)
@@ -293,12 +293,12 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
         await get_bool_variable("FORCE_DOCS_USER","force_docs_user - not implemented.",menu,"forcedocsuser",session_id)
 
 
-        await get_sub_menu("go back ⬅️","mainmenu",session_id,menu)
+        await get_sub_menu("Go Back ⬅️","mainmenu",session_id,menu)
         menu.append(
-            [KeyboardButtonCallback("close menu",f"settings selfdest {session_id}".encode("UTF-8"))]
+            [KeyboardButtonCallback("Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
-            rmess = await e.edit(header+"\nit is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
+            rmess = await e.edit(header+"\nIt is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
 
 # an attempt to manager all the input
 async def general_input_manager(e,mmes,var_name,datatype,value,db,sub_menu):
