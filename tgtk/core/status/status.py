@@ -65,7 +65,7 @@ class QBTask(Status):
         msg = "<b>━━┫ Downloading 📥 ┣━━</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>🔻 Download:</b> {} | <b>🔺 Upload:</b> {}\n".format(
+        msg += "<b>\n🔻 Download:</b> {}\n <b>🔺 Upload:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
@@ -73,7 +73,7 @@ class QBTask(Status):
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
-        msg += "<b>🔮 Process:</b> {} of {}\n".format(
+        msg += "<b>🔮 Process:</b> {} <b>of</b> {}\n".format(
             human_readable_bytes(self._torrent.downloaded),
             human_readable_bytes(self._torrent.total_size)
             )
@@ -206,7 +206,7 @@ class ARTask(Status):
             try:
                 self._dl_file = self._aria2.get_download(self._gid)
             except:
-                torlog.exception("error fetching direct download link.")
+                torlog.exception("Error Fetching Direct Download Link.")
         else:
             self._dl_file = dl_file
 
@@ -218,28 +218,28 @@ class ARTask(Status):
         except:
             pass
 
-        msg = "<b>downloading:</b> <code>{}</code>\n".format(
+        msg = "<b>━━┫ Downloading 📥 ┣━━</b> <code>{}</code>\n".format(
             downloading_dir_name
             )
-        msg += "<b>down:</b> {} <b>Up:</b> {}\n".format(
+        msg += "<b>🔻 Down:</b> {}| <b>🔺 Up:</b> {}\n".format(
             self._dl_file.download_speed_string(),
             self._dl_file.upload_speed_string()
             )
-        msg += "<b>progress:</b> {} - {}%\n".format(
+        msg += "<b>📡 Progress:</b> {} - {}%\n".format(
             self.progress_bar(self._dl_file.progress/100),
             round(self._dl_file.progress,2)
             )
-        msg += "<b>downloaded:</b> {} out of {}\n".format(
+        msg += "<b>🔮 Process:</b> {} <b>of</b> {}\n".format(
             human_readable_bytes(self._dl_file.completed_length),
             human_readable_bytes(self._dl_file.total_length)
             )
-        msg += "<b>eta:</b> <b>{}</b>\n".format(
+        msg += "<b>⏳ ETA:</b> <b>{}</b>\n".format(
             self._dl_file.eta_string()
             )
-        msg += "<b>conns:  </b>{} <b>\n".format(
+        msg += "<b>🌱 Connection: </b>{} <b>\n".format(
             self._dl_file.connections
             )
-        msg += "<b>using engine:</b> <code>aria2</code>"
+        msg += "<b>\n💠 Using engine:</b> <code>[ Aria2 ]</code>"
 
         return msg
 
@@ -296,7 +296,7 @@ class ARTask(Status):
         return self._path
 
     def progress_bar(self, percentage):
-        """Returns a progress bar for download
+        """Returns a progress bar for Download
         """
         #percentage is on the scale of 0-1
         comp = get_val("COMPLETED_STR")
