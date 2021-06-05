@@ -27,7 +27,7 @@ async def create_status_menu(event):
     row = []
     Buttons = []
 
-    msg = "currently running: \nclick on the task number you want to cancel.\n"
+    msg = "🌀 Currently Running... \nClick on the Task Number you want to Cancel.\n"
     for i in tasks.Tasks:
         if await i.is_active():
             
@@ -98,7 +98,7 @@ async def create_status_user_menu(event):
     row = []
     Buttons = []
 
-    msg = "currently running: for you- \nclick on the task number you want to cancel.\n"
+    msg = "🌀 Currently Running... For You- \nClick on the Task number you want to Cancel.\n"
     for i in tasks.Tasks:
         if await i.is_active():
             
@@ -138,7 +138,7 @@ async def create_status_user_menu(event):
                     )
             except:
                 tors += 1
-                torlog.exception("In status msg")
+                torlog.exception("In Status msg")
                 continue
             
             msg += get_num(tors) + " " + await i.create_message()
