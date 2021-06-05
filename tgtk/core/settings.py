@@ -17,8 +17,8 @@ TIMEOUT_SEC = 60
 # this file will contian all the handlers and code for settings
 # code can be more modular i think but not bothering now
 # todo make the code more modular
-no = "❌"
-yes = "✅"
+no = "❌ "
+yes = "✅ "
 # Central object is not used its Acknowledged 
 tordb = tkdb()
 header =  '<b>TGTK - Telegram Leech Bot.</b>\n<u>Admin Menu</u>'
@@ -33,7 +33,7 @@ async def handle_setting_callback(e):
     
     if cmd[-1] != session_id:
         print("Session id",session_id," - - ",cmd[-1])
-        await e.answer("this Setting menu is expired.",alert=True)
+        await e.answer("This Setting menu is Expired.",alert=True)
         await e.delete()
         return
     if cmd[1] == "fdocs":
@@ -224,7 +224,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
     ]
     
     if submenu is None:
-        await get_bool_variable("LOCKED_USERS","Lock the Group",menu,"usrlock",session_id)
+        await get_bool_variable("🔐 LOCKED_USERS","Lock the Group",menu,"usrlock",session_id)
         await get_bool_variable("FORCE_DOCUMENTS","FORCE_DOCUMENTS",menu,"fdocs",session_id)
         await get_bool_variable("METAINFO_BOT","mediainforobot - get metadata of files in this group.",menu,"metainfo",session_id)
         await get_string_variable("COMPLETED_STR",menu,"compstr",session_id)
@@ -234,8 +234,8 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
         await get_int_variable("MAX_YTPLAYLIST_SIZE",menu,"maxytplsize",session_id)
         await get_int_variable("EDIT_SLEEP_SECS",menu,"editsleepsec",session_id)
         #await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",session_id)
-        await get_sub_menu("open rclone menu","rclonemenu",session_id,menu)
-        await get_sub_menu("control actions","ctrlacts",session_id,menu)
+        await get_sub_menu("Open RClone Menu","rclonemenu",session_id,menu)
+        await get_sub_menu("Control Action","ctrlacts",session_id,menu)
         menu.append(
             [KeyboardButtonCallback("close menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
@@ -280,7 +280,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
 
         await get_sub_menu("Go Back ⬅️","mainmenu",session_id,menu)
         menu.append(
-            [KeyboardButtonCallback("close menu",f"settings selfdest {session_id}".encode("UTF-8"))]
+            [KeyboardButtonCallback("❌ Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
             rmess = await e.edit(header+"\nIt's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
@@ -295,7 +295,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
 
         await get_sub_menu("Go Back ⬅️","mainmenu",session_id,menu)
         menu.append(
-            [KeyboardButtonCallback("Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
+            [KeyboardButtonCallback("❌ Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
             rmess = await e.edit(header+"\nIt is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
@@ -344,15 +344,15 @@ async def general_input_manager(e,mmes,var_name,datatype,value,db,sub_menu):
                         db.set_variable(var_name,value)
                         SessionVars.update_var(var_name,value)
                     
-                    await handle_settings(mmes,True,f"<b><u>received {var_name} value '{value}' with confirm.</b></u>",sub_menu)
+                    await handle_settings(mmes,True,f"<b><u>Received {var_name} value '{value}' with confirm.</b></u>",sub_menu)
                 except ValueError:
-                    await handle_settings(mmes,True,f"<b><u>value [{value}] not valid try again and enter {datatype}.</b></u>",sub_menu)    
+                    await handle_settings(mmes,True,f"<b><u>Value [{value}] not valid try again and enter {datatype}.</b></u>",sub_menu)    
             else:
-                await handle_settings(mmes,True,f"<b><u>confirm differed by user.</b></u>",sub_menu)
+                await handle_settings(mmes,True,f"<b><u>Confirm differed by user.</b></u>",sub_menu)
         else:
-            await handle_settings(mmes,True,f"<b><u>confirm timed out [waited 60s for input].</b></u>",sub_menu)
+            await handle_settings(mmes,True,f"<b><u>Confirm timed out [waited 60s for input].</b></u>",sub_menu)
     else:
-        await handle_settings(mmes,True,f"<b><u>entry timed out [waited 60s for input].</b></u>",sub_menu)
+        await handle_settings(mmes,True,f"<b><u>Entry timed out [waited 60s for input].</b></u>",sub_menu)
 
 
 async def get_value(e,file=False):
