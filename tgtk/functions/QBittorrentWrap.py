@@ -71,7 +71,7 @@ async def add_torrent_magnet(magnet,message):
 
         if len(ext_res) > 0:
             torlog.info(f"this torrent is in list {ext_res} {magnet} {ext_hash}")
-            await message.edit("this torrent is already added to the leech queue.")
+            await message.edit("This torrent is alreaded in the leech list. 📃")
             return False
         # hot fix for the below issue
         savepath = os.path.join(os.getcwd(), "Downloads", str(time.time()).replace(".",""))
@@ -134,7 +134,7 @@ async def add_torrent_file(path,message):
 
         if len(ext_res) > 0:
             torlog.info(f"this torrent is in list {ext_res} {path} {ext_hash}")
-            await message.edit("this torrent is already added to the leech queue")
+            await message.edit("This torrent is alreaded in the leech list. 📃")
             return False
         
         # hot fix for the below issue
@@ -256,7 +256,7 @@ async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=No
 
                     await task.set_path(savepath)
                     await task.set_done()
-                    await message.edit("download completed: `{}` - (`{}`)\nto path: `{}`".format(tor_info.name,human_readable_bytes(tor_info.total_size),tor_info.save_path),buttons=None)
+                    await message.edit("Download Completed ```{}```. To Path (`{}`)\n ```{}```".format(tor_info.name,human_readable_bytes(tor_info.total_size),tor_info.save_path),buttons=None)
                     return [savepath, task]
                 else:
                     #return await update_progress(client,message,torrent)
@@ -278,7 +278,7 @@ async def pause_all(message):
     await aio.sleep(1)
     msg = ""
     tors = await aloop.run_in_executor(None,partial(client.torrents_info,status_filter="paused|stalled"))
-    msg += "⏸️ Paused total <b>{}</b> torrents ⏸️\n".format(len(tors))
+    msg += "⏸️ Paused total <b>{}</b> Torrents ⏸️\n".format(len(tors))
 
     for i in tors:
         if i.progress == 1:
@@ -297,7 +297,7 @@ async def resume_all(message):
     msg = ""
     tors = await aloop.run_in_executor(None,partial(client.torrents_info,status_filter="stalled|downloading|stalled_downloading"))
     
-    msg += "▶️Resumed {} torrents check the status for more...▶️".format(len(tors))
+    msg += "▶️Resumed {} Torrents check the status for more...▶️".format(len(tors))
 
     for i in tors:
         if i.progress == 1:
