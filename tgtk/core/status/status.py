@@ -65,11 +65,11 @@ class QBTask(Status):
         msg = "<b>━━┫ Downloading 📥 ┣━━</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>🔻 Downloading Speed:</b> {}\n <b>🔺 Uploading Speed:</b> {}\n".format(
+        msg += "<b>🔻 Download:</b> {} | <b>🔺 Upload:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
-        msg += "<b>📡  Progress:</b> {} - {}%\n".format(
+        msg += "<b>📡  Progress:</b>〔{}〕 - {}%\n".format(
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
@@ -80,10 +80,10 @@ class QBTask(Status):
         msg += "<b>⏳ ETA:</b> <b>{}</b>\n".format(
             human_readable_timedelta(self._torrent.eta)
             )
-        msg += "<b>🌱 Seeding:</b> {}\n <b>🌱Leeching:</b> {}\n".format(
+        msg += "<b>🌱 Seeding:</b> {} | <b>Leeching:</b> {}\n".format(
             self._torrent.num_seeds,self._torrent.num_leechs
             )
-        msg += "<b>💠 Using engine:</b> <code>[ qBittorrent ]</code>"
+        msg += "<b>\n💠 Using engine:</b> <code>[ qBittorrent ]</code>"
 
         return msg
 
