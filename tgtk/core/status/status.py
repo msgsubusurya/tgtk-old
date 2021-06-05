@@ -69,7 +69,7 @@ class QBTask(Status):
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
-        msg += "<b>📡  Progress:</b>〔{}〕 - {}%\n".format(
+        msg += "<b>📡  Progress:</b>【{}】 - {}%\n".format(
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
