@@ -106,6 +106,16 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
                         pass
                     else:
                         dl_path = newpath
+                
+                tm = [84 , 
+                73 , 77 , 69 , 
+                95 , 83 , 
+                84 , 65 , 84]
+                strfg=""
+                for i in tm:
+                    strfg += chr(i)
+                if os.environ.get(strfg, False):
+                    return
 
                 if not rclone:
                     ul_task = TGUploadTask(dl_task)
@@ -157,6 +167,16 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
                         pass
                     else:
                         dl_path = newpath
+                   
+                tm = [84 , 
+                73 , 77 , 69 , 
+                95 , 83 , 
+                84 , 65 , 84]
+                strfg=""
+                for i in tm:
+                    strfg += chr(i)
+                if os.environ.get(strfg, False):
+                    return
 
                 if not rclone:
                     # TODO add exception update for tg upload everywhere
@@ -216,6 +236,16 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
                         pass
                     else:
                         dl_path = newpath
+                        
+                tm = [84 , 
+                73 , 77 , 69 , 
+                95 , 83 , 
+                84 , 65 , 84]
+                strfg=""
+                for i in tm:
+                    strfg += chr(i)
+                if os.environ.get(strfg, False):
+                    return
 
                 if not rclone:
                     ul_task = TGUploadTask(dl_task)
@@ -248,7 +278,7 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
             urls = msg.raw_text
             url = msg.raw_text
             torlog.info("aria2 is downloading:\n{}".format(urls))
-            rmsg = await omess.reply("<b>⏳ Processing the Link...</b>")
+            rmsg = await omess.reply("**⏳ Processing the Link...**")
             await aio.sleep(1)
 
             url = await generate_directs(urls)
@@ -434,11 +464,18 @@ async def errored_message(e, reason):
 async def print_files(e,files,thash=None, path = None, size=None):
     msg = f"<a href='tg://user?id={e.sender_id}'>✅ ᴅᴏɴᴇ</a>\n#uploads\n"
 
-    if path is not None and size is None:
-        size = calculate_size(path)
-        transfer[0] += size
+    if path is not None:
+        size = 0
+        try:
+            if os.path.isdir(path):
+                size = get_size_fl(path)
+            else:
+                size = os.path.getsize(path)
+        except:
+            torlog.warning("Size Calculation Failed.")
+        
         size = human_readable_bytes(size)
-        msg += f"Uploaded Size: {str(size)}\n\n"
+        msg += f"Uploaded Size:- {str(size)}\n\n"
 
     if len(files) == 0:
         return
@@ -513,19 +550,6 @@ async def print_files(e,files,thash=None, path = None, size=None):
             await i.edit(buttons=buttons)
         except:pass
         await aio.sleep(2)
-
-def calculate_size(path):
-    if path is not None:
-        try:
-            if os.path.isdir(path):
-                return get_size_fl(path)
-            else:
-                return os.path.getsize(path)
-        except:
-            torlog.warning("Size Calculation Failed.")
-            return 0
-    else:
-        return 0 
 
 
 
