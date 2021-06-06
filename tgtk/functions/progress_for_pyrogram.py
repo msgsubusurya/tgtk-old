@@ -38,7 +38,7 @@ async def progress_for_pyrogram(
             # todo inspect with "StopAsyncIteration"
             # IG Open stream will be Garbage Collected
             if updb.get_cancel_status(cancel_msg.chat.id,cancel_msg.message_id):
-                print("Stopping transmission")
+                print("Stopping Transmission")
                 client.stop_transmission()
     
         # if round(current / total * 100, 0) % 5 == 0:
@@ -51,12 +51,12 @@ async def progress_for_pyrogram(
         elapsed_time = human_readable_timedelta(elapsed_time)
         estimated_total_time = human_readable_timedelta(estimated_total_time)
 
-        progress = "[{0}{1}] \nP: {2}%\n".format(
+        progress = "<b>📡 Progress:【{0}{1}】</b> - {2}%\n".format(
             ''.join([get_val("COMPLETED_STR") for _ in range(math.floor(percentage / 10))]),
             ''.join([get_val("REMAINING_STR") for _ in range(10 - math.floor(percentage / 10))]),
             round(percentage, 2))
 
-        tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\nusing engine: pyrogram".format(
+        tmp = progress + "<b>🔮 Process:</b>{0} <b>of</b> {1}\n<b>🚀 Speed:</b> {2}/s\n<b>⏳ ETA:</b> {3}\n\n<b>💠Using Engine:</b> <code>[ Pyrogram ]</code>".format(
             human_readable_bytes(current),
             human_readable_bytes(total),
             human_readable_bytes(speed),
@@ -65,7 +65,7 @@ async def progress_for_pyrogram(
         try:
             if not message.photo:
                 await message.edit_text(
-                    text="**Uploading:** `{}`\n{}".format(
+                    text="**════╡ Uploading 📤 ╞════\n\n** </b>🗃️File Name:</b> `{}`\n{}".format(
                         ud_type,
                         tmp
                     ),
@@ -73,7 +73,7 @@ async def progress_for_pyrogram(
                 )
             else:
                 await message.edit_caption(
-                    caption="**Uploading:** `{}`\n{}".format(
+                    caption="**════╡ Uploading 📤 ╞════\n\n** </b>🗃️File Name:</b> `{}`\n{}".format(
                         ud_type,
                         tmp
                     ),
