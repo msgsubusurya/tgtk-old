@@ -90,11 +90,11 @@ class QBTask(Status):
     async def get_state(self):
         #stalled
         if self._torrent.state == "stalledDL":
-            return"Torrent <code>{}</code> is stalled(waiting for connection) temporarily.".format(self._torrent.name)
+            return"<b>Torrent </b>\n<code>📂: {}</code>\nis stalled(waiting for connection 🚥) temporarily...".format(self._torrent.name)
         #meta stage
         elif self._torrent.state == "metaDL":
             return  "Getting metadata for {} - {}".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
-        elif self._torrent.state == "downloading" or self._torrent.state.lower().endswith("dl"):
+        elif self._torrent.state == "<b>📥 Downloading</b>" or self._torrent.state.lower().endswith("dl"):
             # kept for past ref
             return None
 
@@ -125,7 +125,7 @@ class QBTask(Status):
         except FloodWaitError as e:
             torlog.error("{}".format(e))
         except Exception as e:
-            torlog.info("not expected {}".format(e))
+            torlog.info("Not Expected {}".format(e))
 
 
     async def set_done(self):
