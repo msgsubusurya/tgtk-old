@@ -475,13 +475,13 @@ async def upload_single_file(path, message, force_edit,database=None,thumb_image
             data = "upcancel {} {} {}".format(message.chat.id,message.message_id,user_msg.sender_id)
             markup = InlineKeyboardMarkup([[InlineKeyboardButton("cancel upload.", callback_data=data.encode("UTF-8"))]])
             message_for_progress_display = await message.reply_text(
-                "**📤 Starting upload of** `{}`".format(os.path.basename(path)),
+                "<b>📤 Uploading</b>\n <code>{}</code>".format(os.path.basename(path)),
                 reply_markup=markup
             )
 
             if queue is not None:
                 torlog.info(f"🔨 Waiting for the worker here for {file_name}")
-                message_for_progress_display = await message_for_progress_display.edit(f"{message_for_progress_display.text}\nwaiting in uploading queue.. ")
+                message_for_progress_display = await message_for_progress_display.edit(f"{message_for_progress_display.text}\n\n🥱 Waiting in Uploading Queue... ")
                 uploader_id = await queue.get()
                 torlog.info(f"🔨 Waiting over for the worker here for {file_name} acquired worker {uploader_id}")
         
