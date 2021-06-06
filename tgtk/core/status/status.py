@@ -65,11 +65,11 @@ class QBTask(Status):
         msg = "<b>════╡ Downloading 📥 ╞════</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>\n🔻 Down:</b> {}| <b>🔺 Up:</b> {}\n".format(
+        msg += "<b>\n🔻Down:</b> {} | <b>🔺Up:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
-        msg += "<b>📡  Progress:</b>【{}】 - {}%\n".format(
+        msg += "<b>📡 Progress:</b>【{}】-{}%\n".format(
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
@@ -77,7 +77,7 @@ class QBTask(Status):
             human_readable_bytes(self._torrent.downloaded),
             human_readable_bytes(self._torrent.total_size)
             )
-        msg += "<b>⏳ ETA:</b> <b>{}</b>\n".format(
+        msg += "<b>⏳ ETA:</b> {}\n".format(
             human_readable_timedelta(self._torrent.eta)
             )
         msg += "<b>🌱 Seed:</b> {} | <b>Leech:</b> {}\n".format(
