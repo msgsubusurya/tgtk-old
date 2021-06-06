@@ -87,7 +87,7 @@ async def upload_handel(path,message,from_uid,files_dict,job_id=0,force_edit=Fal
             updb.deregister_upload(message.chat_id,message.id)
 
     else:
-        logging.info("📤 Uploading the File: {}".format(path))
+        logging.info("**📤 Uploading the File:** {}".format(path))
         if os.path.getsize(path) > get_val("TG_UP_LIMIT"):
             # the splitted file will be considered as a single upload ;)
             
@@ -475,7 +475,7 @@ async def upload_single_file(path, message, force_edit,database=None,thumb_image
             data = "upcancel {} {} {}".format(message.chat.id,message.message_id,user_msg.sender_id)
             markup = InlineKeyboardMarkup([[InlineKeyboardButton("cancel upload.", callback_data=data.encode("UTF-8"))]])
             message_for_progress_display = await message.reply_text(
-                "<b>📤 Uploading</b>\n <code>{}</code>".format(os.path.basename(path)),
+                "**📤 Uploading...**\n`{}`".format(os.path.basename(path)),
                 reply_markup=markup
             )
 
