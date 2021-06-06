@@ -62,10 +62,10 @@ class QBTask(Status):
         return self._omess.sender_id
 
     async def create_message(self):
-        msg = "<b>━━┫ Downloading 📥 ┣━━</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
+        msg = "<b>════╡ Downloading 📥 ╞════</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
-        msg += "<b>\n🔻 Download:</b> {}\n<b>🔺 Upload:</b> {}\n".format(
+        msg += "<b>\n🔻 Down:</b> {}| <b>🔺 Up:</b> {}\n".format(
             human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
             human_readable_bytes(self._torrent.upspeed,postfix="/s")
             )
@@ -80,10 +80,10 @@ class QBTask(Status):
         msg += "<b>⏳ ETA:</b> <b>{}</b>\n".format(
             human_readable_timedelta(self._torrent.eta)
             )
-        msg += "<b>🌱 Seeding:</b> {} | <b>Leeching:</b> {}\n".format(
+        msg += "<b>🌱 Seed:</b> {} | <b>Leech:</b> {}\n".format(
             self._torrent.num_seeds,self._torrent.num_leechs
             )
-        msg += "<b>\n💠 Using engine:</b> <code>[ qBittorrent ]</code>"
+        msg += "<b>\n💠 Using Engine:</b> <code>[ qBittorrent ]</code>"
 
         return msg
 
@@ -218,14 +218,14 @@ class ARTask(Status):
         except:
             pass
 
-        msg = "<b>━━┫ Downloading 📥 ┣━━</b> <code>{}</code>\n".format(
+        msg = "<b>════╡ Downloading 📥 ╞════</b>\n\n<code>{}</code>\n".format(
             downloading_dir_name
             )
         msg += "<b>🔻 Down:</b> {}| <b>🔺 Up:</b> {}\n".format(
             self._dl_file.download_speed_string(),
             self._dl_file.upload_speed_string()
             )
-        msg += "<b>📡 Progress:</b> {} - {}%\n".format(
+        msg += "<b>📡 Progress:</b> 【{}】 - {}%\n".format(
             self.progress_bar(self._dl_file.progress/100),
             round(self._dl_file.progress,2)
             )
@@ -239,7 +239,7 @@ class ARTask(Status):
         msg += "<b>🌱 Connection: </b>{} <b>\n".format(
             self._dl_file.connections
             )
-        msg += "<b>\n💠 Using engine:</b> <code>[ Aria2 ]</code>"
+        msg += "<b>\n💠 Using Engine:</b> <code>[ Aria2 ]</code>"
 
         return msg
 
