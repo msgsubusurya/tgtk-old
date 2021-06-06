@@ -248,7 +248,7 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
             urls = msg.raw_text
             url = msg.raw_text
             torlog.info("aria2 is downloading:\n{}".format(urls))
-            rmsg = await omess.reply("**⏳ Processing the Link...**")
+            rmsg = await omess.reply("<b>⏳ Processing the Link...</b>")
             await aio.sleep(1)
 
             url = await generate_directs(urls)
@@ -317,7 +317,7 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
 
                     await ul_task.set_inactive()
                     await print_files(omess,rdict,dl_task.hash, path = dl_path, size=ul_size)
-                    torlog.info("here are the files to be uploaded {}".format(rdict))
+                    torlog.info("Here are the files to be uploaded {}".format(rdict))
                 else:
                     res = await rclone_driver(path,rmsg, omess, dl_task)
                     if res is None:
@@ -360,18 +360,18 @@ async def handle_zips(path, is_zip, rmess, split=True):
             zip_path = await add_to_zip(path, get_val("TG_UP_LIMIT"), split)
 
             if zip_path is None:
-                await rmess.edit(rmess.text+"\n zip failed. fallback to normal")
+                await rmess.edit(rmess.text+"\n ZIP failed. Fallback to normal")
                 return False
 
             if os.path.isdir(path):
                 shutil.rmtree(path)
             if os.path.isfile(path):
                 os.remove(path)
-            await rmess.edit(rmess.text+"\n zipping completed, now uploading.")
+            await rmess.edit(rmess.text+"\n ZIPPING Completed, Now Uploading.")
             await clear_stuff(path)
             return zip_path
         except:
-            await rmess.edit(rmess.text+"\n Zip failed. Falback to Normal")
+            await rmess.edit(rmess.text+"\n ZIP failed. Fallback to Normal")
             return False
     else:
         return path
