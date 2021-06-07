@@ -71,7 +71,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "tguplimit":
         # what will a general manager require
         # anser message, type handler, value 
-        await e.answer("Type the new value for TELEGRAM UPLOAD LIMIT. Note that an integer is expected.",alert=True)
+        await e.answer("Type the new value for TELEGRAM UPLOAD LIMIT. note that an integer is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -82,7 +82,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "maxtorsize":
         # what will a general manager require
         # answer message, type handler, value 
-        await e.answer("Type the new value for MAX TORRENT SIZE. Note that integer an is expected.",alert=True)
+        await e.answer("Type the new value for MAX TORRENT SIZE. note that integer an is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -93,7 +93,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "maxytplsize":
         # what will a general manager require
         # answer message, type handler, value 
-        await e.answer("Type the new value for MAX PLAYLIST SIZE. Note that an integer is expected.",alert=True)
+        await e.answer("Type the new value for MAX PLAYLIST SIZE. note that an integer is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
@@ -104,7 +104,7 @@ async def handle_setting_callback(e):
     elif cmd[1] == "rclonemenu":
         # this is menu
         mmes = await e.get_message()
-        await handle_settings(mmes,True,"\nRClone config menu. TD= Team Drive, ND= Normal Drive",submenu="rclonemenu",session_id=session_id)
+        await handle_settings(mmes,True,"\nRclone config menu. TD= Team Drive, ND= Normal Drive",submenu="rclonemenu",session_id=session_id)
     elif cmd[1] == "mainmenu":
         # this is menu
         mmes = await e.get_message()
@@ -121,7 +121,7 @@ async def handle_setting_callback(e):
         db.set_variable("DEF_RCLONE_DRIVE",cmd[2])
         SessionVars.update_var("DEF_RCLONE_DRIVE",cmd[2])
 
-        await handle_settings(await e.get_message(),True,f"<b><u>Changed the default Drive to {cmd[2]}</b></u>","rclonemenu",session_id=session_id)
+        await handle_settings(await e.get_message(),True,f"<b><u>Changed the default drive to {cmd[2]}</b></u>","rclonemenu",session_id=session_id)
     elif cmd[1] == "usrlock":
         if cmd[2] == "true":
             val = True
@@ -129,12 +129,12 @@ async def handle_setting_callback(e):
                 # JIC is user does manual stuff
                 await e.client.edit_permissions(e.chat_id,send_messages=False)
             except:
-                await e.answer("An error occured, try again if doesn't work, report this issue.")
+                await e.answer("An error occured, try again if doesn't work, Report this issue.")
         else:
             try:
                 await e.client.edit_permissions(e.chat_id,send_messages=True)
             except:
-                await e.answer("An error occured, try again if doesn't work, report this issue.")
+                await e.answer("An error occured, try again if doesn't work, Report this issue.")
             val = False
         
         db.set_variable("LOCKED_USERS",val)
@@ -155,7 +155,7 @@ async def handle_setting_callback(e):
         db.set_variable("RCLONE_ENABLED",val)
         SessionVars.update_var("RCLONE_ENABLED",val)
         mmes = await e.get_message()
-        await handle_settings(mmes,True,f"<b><u>changed the value to {val} of rclone enabled.</b></u>","ctrlacts",session_id=session_id)
+        await handle_settings(mmes,True,f"<b><u>Changed the value to {val} of rclone enabled.</b></u>","ctrlacts",session_id=session_id)
     
     elif cmd[1] == "leechenable":
         await e.answer("")
@@ -167,17 +167,17 @@ async def handle_setting_callback(e):
         db.set_variable("LEECH_ENABLED",val)
         SessionVars.update_var("LEECH_ENABLED",val)
         mmes = await e.get_message()
-        await handle_settings(mmes,True,f"<b><u>changed the value to {val} of leech enabled.</b></u>","ctrlacts",session_id=session_id)
+        await handle_settings(mmes,True,f"<b><u>Changed the value to {val} of leech enabled.</b></u>","ctrlacts",session_id=session_id)
     
     elif cmd[1] == "editsleepsec":
-        await e.answer("type the new value for EDIT_SLEEP_SECS. note that an integer is expected.",alert=True)
+        await e.answer("Type the new value for EDIT_SLEEP_SECS. note that an integer is expected.",alert=True)
 
         mmes = await e.get_message()
         await mmes.edit(f"{mmes.raw_text}\n/ignore to go back",buttons=None)
         val = await get_value(e)
         
         await general_input_manager(e,mmes,"EDIT_SLEEP_SECS","int",val,db,None)
-        elif cmd[1] == "fastupload":
+    elif cmd[1] == "fastupload":
         await e.answer("")
 
         if cmd[2] == "true":
@@ -200,8 +200,8 @@ async def handle_setting_callback(e):
         db.set_variable("EXPRESS_UPLOAD",val)
         SessionVars.update_var("EXPRESS_UPLOAD",val)
         mmes = await e.get_message()
-        await handle_settings(mmes,True,f"<b><u>Changed the value to {val} of Express Upload Enabled.</b></u>","ctrlacts",session_id=session_id)
-        elif cmd[1] == "metainfo":
+        await handle_settings(mmes,True,f"<b><u>Changed the value to {val} of express upload enabled.</b></u>","ctrlacts",session_id=session_id)
+    elif cmd[1] == "metainfo":
         await e.reply("Add @metainforobot to your group to get the metadata easily.")
     elif cmd[1] == "selfdest":
         await e.answer("closed.")
@@ -226,7 +226,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
     if submenu is None:
         await get_bool_variable("🔐 LOCKED_USERS","Lock the Group",menu,"usrlock",session_id)
         await get_bool_variable("FORCE_DOCUMENTS","FORCE_DOCUMENTS",menu,"fdocs",session_id)
-        await get_bool_variable("METAINFO_BOT","mediainforobot - Get Metadata of files in this group.",menu,"metainfo",session_id)
+        await get_bool_variable("METAINFO_BOT","mediainforobot - get metadata of files in this group.",menu,"metainfo",session_id)
         await get_string_variable("COMPLETED_STR",menu,"compstr",session_id)
         await get_string_variable("REMAINING_STR",menu,"remstr",session_id)
         await get_int_variable("TG_UP_LIMIT",menu,"tguplimit",session_id)
@@ -234,17 +234,17 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
         await get_int_variable("MAX_YTPLAYLIST_SIZE",menu,"maxytplsize",session_id)
         await get_int_variable("EDIT_SLEEP_SECS",menu,"editsleepsec",session_id)
         #await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",session_id)
-        await get_sub_menu("Open RClone Menu","rclonemenu",session_id,menu)
-        await get_sub_menu("Control Action","ctrlacts",session_id,menu)
+        await get_sub_menu("open rclone menu","rclonemenu",session_id,menu)
+        await get_sub_menu("control actions","ctrlacts",session_id,menu)
         menu.append(
             [KeyboardButtonCallback("close menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
 
 
         if edit:
-            rmess = await e.edit(header+"\nIt is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
+            rmess = await e.edit(header+"\nIt's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
         else:
-            rmess = await e.reply(header+"\nIt is recommended to lock the group before setting vars.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
+            rmess = await e.reply(header+"\nIt's recommended to lock the group before setting vars.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
     elif submenu == "rclonemenu":
         rcval = await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",session_id)
         if rcval != "None":
@@ -271,11 +271,11 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
 
                     if "team_drive" in list(conf[j]):
                         menu.append(
-                            [KeyboardButtonCallback(f"{prev}{j} - TD",f"settings change_drive {j} {session_id}")]
+                            [KeyboardButtonCallback(f"{prev}{j} - TD",f"Settings change_drive {j} {session_id}")]
                         )
                     else:
                         menu.append(
-                            [KeyboardButtonCallback(f"{prev}{j} - ND",f"settings change_drive {j} {session_id}")]
+                            [KeyboardButtonCallback(f"{prev}{j} - ND",f"Settings change_drive {j} {session_id}")]
                         )
 
         await get_sub_menu("Go Back ⬅️","mainmenu",session_id,menu)
@@ -283,13 +283,13 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
             [KeyboardButtonCallback("❌ Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
-            rmess = await e.edit(header+"\nIt's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
+            rmess = await e.edit(header+"\nit's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
 
     elif submenu == "ctrlacts":
-        await get_bool_variable("RCLONE_ENABLED","Enable RClone.",menu,"rcloneenable",session_id)
-        await get_bool_variable("LEECH_ENABLED","Enable Leech.",menu,"leechenable",session_id)
-        await get_bool_variable("FAST_UPLOAD","Enable Fast Upload. (turn off if you get errors)",menu,"fastupload",session_id)
-        await get_bool_variable("EXPRESS_UPLOAD","Enable Express Upload. (turn off if you get errors.)",menu,"expressupload",session_id)
+        await get_bool_variable("RCLONE_ENABLED","enable rclone.",menu,"rcloneenable",session_id)
+        await get_bool_variable("LEECH_ENABLED","enable leech.",menu,"leechenable",session_id)
+        await get_bool_variable("FAST_UPLOAD","enable fast upload. (turn off if you get errors)",menu,"fastupload",session_id)
+        await get_bool_variable("EXPRESS_UPLOAD","enable express upload. (turn off if you get errors.)",menu,"expressupload",session_id)
         await get_bool_variable("FORCE_DOCS_USER","force_docs_user - not implemented.",menu,"forcedocsuser",session_id)
 
 
@@ -298,8 +298,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
             [KeyboardButtonCallback("❌ Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )
         if edit:
-            rmess = await e.edit(header+"\nIt is recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
-            
+            rmess = await e.edit(header+"\nIt's recommended to lock the group before setting vars.\n"+msg,parse_mode="html",buttons=menu,link_preview=False)
 
 # an attempt to manager all the input
 async def general_input_manager(e,mmes,var_name,datatype,value,db,sub_menu):
@@ -339,7 +338,7 @@ async def general_input_manager(e,mmes,var_name,datatype,value,db,sub_menu):
                             SessionVars.update_var("LEECH_ENABLED",True)
                         except Exception:
                             torlog.error(traceback.format_exc())
-                            await handle_settings(mmes,True,f"<b><u>The Configuration file is invalid, Check Logs.</b></u>",sub_menu)
+                            await handle_settings(mmes,True,f"<b><u>The configuration file is invalid, check logs.</b></u>",sub_menu)
                             return
                     else:
                         db.set_variable(var_name,value)
@@ -458,16 +457,16 @@ async def get_bool_variable(var_name,msg,menu,callback_name,session_id):
     if val:
         #setting the value in callback so calls will be reduced ;)
         menu.append(
-            [KeyboardButtonCallback(yes+msg,f"settings {callback_name} false {session_id}".encode("UTF-8"))]
+            [KeyboardButtonCallback(yes+msg,f"Settings {callback_name} false {session_id}".encode("UTF-8"))]
         ) 
     else:
         menu.append(
-            [KeyboardButtonCallback(no+msg,f"settings {callback_name} true {session_id}".encode("UTF-8"))]
+            [KeyboardButtonCallback(no+msg,f"Settings {callback_name} true {session_id}".encode("UTF-8"))]
         ) 
 
 async def get_sub_menu(msg,sub_name,session_id,menu):
     menu.append(
-        [KeyboardButtonCallback(msg,f"Settings {sub_name} {session_id}".encode("UTF-8"))]
+        [KeyboardButtonCallback(msg,f"settings {sub_name} {session_id}".encode("UTF-8"))]
     )
 
 async def get_string_variable(var_name,menu,callback_name,session_id):
