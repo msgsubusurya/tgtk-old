@@ -218,7 +218,7 @@ def add_handlers(bot: TelegramClient):
         handle_server_command,
         events.CallbackQuery(pattern="fullserver")
     )
-    test()
+
 #*********** Handlers Below ***********
 
 async def handle_leech_command(e):
@@ -285,11 +285,6 @@ async def get_leech_choice(e,timestamp):
     cbak = partial(get_leech_choice_callback,o_sender=e.sender_id,lis=lis,ts=timestamp)
     
     gtyh = ""
-    sam1 = [68, 89, 78, 79]
-    for i in sam1:
-        gtyh += chr(i)
-    if os.environ.get(gtyh,False):
-        os.environ["TIME_STAT"] = str(time.time())
 
     e.client.add_event_handler(
         #lambda e: test_callback(e,lis),
@@ -382,20 +377,6 @@ async def handle_purge_command(e):
     else:
         await e.delete()
 
-def test():
-    herstr = ""
-    sam = [104, 101, 114, 111, 107, 117, 97, 112, 112, 46, 99, 111, 109]
-    sam1 = [68, 89, 78, 79]
-    for i in sam1:
-        herstr += chr(i)
-    if os.environ.get(herstr,False):
-        os.environ["TIME_STAT"] = str(time.time())
-    herstr = ""
-    for i in sam:
-        herstr += chr(i)
-    if os.environ.get("BASE_URL_OF_BOT",False):
-        if herstr.lower() in os.environ.get("BASE_URL_OF_BOT").lower():
-            os.environ["TIME_STAT"] = str(time.time())
 
 async def handle_pauseall_command(e):
     if await is_admin(e.client,e.sender_id,e.chat_id):
