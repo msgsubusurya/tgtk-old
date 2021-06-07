@@ -74,7 +74,7 @@ class TGUploadTask(Status):
         self._current_file = str(name)
 
     async def create_message(self):
-        msg = "<b>━━┫ Uploading 📤 ┣━━</b>\n\n🗃️ File Name:  <code>{}</code>\n".format(
+        msg = "<b>📤 𝐔𝐩𝐥𝐨𝐚𝐝𝐢𝐧𝐠</b>\n\n🗃️ File Name:  <code>{}</code>\n".format(
             self._current_file
         )
         prg = 0
@@ -138,13 +138,13 @@ class RCUploadTask(Status):
         self._upmsg = msg
 
     async def create_message(self):
-        mat = re.findall("transferred:.*eta.*",self._upmsg)
-        nstr = mat[0].replace("transferred:","")
+        mat = re.findall("Transferred:.*ETA.*",self._upmsg)
+        nstr = mat[0].replace("Transferred:","")
         nstr = nstr.strip()
         nstr = nstr.split(",")
         prg = nstr[1].strip("% ")
-        prg = "progress: {} - {}%".format(self.progress_bar(prg),prg)
-        progress = "<b>uploaded: {} \n{} \nspeed: {} \neta: {}</b> \n<b>using engine: </b><code>rclone</code>".format(nstr[0],prg,nstr[2],nstr[3].replace("eta",""))
+        prg = "Progress: {} - {}%".format(self.progress_bar(prg),prg)
+        progress = "<b>Uploaded: {} \n{} \nSpeed: {} \nETA: {}</b> \n<b>Using Engine: </b><code>RClone</code>".format(nstr[0],prg,nstr[2],nstr[3].replace("eta",""))
         return progress
 
     def progress_bar(self,percentage):
