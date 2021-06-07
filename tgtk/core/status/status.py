@@ -62,7 +62,7 @@ class QBTask(Status):
         return self._omess.sender_id
 
     async def create_message(self):
-        msg = "<b>════╡ Downloading 📥 ╞════</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
+        msg = "<b>📥 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠</b>\n\n🗃️ File Name: <code>{}</code>\n".format(
             self._torrent.name
             )
         msg += "<b>\n🔻Down:</b> {} | <b>🔺Up:</b> {}\n".format(
@@ -90,11 +90,11 @@ class QBTask(Status):
     async def get_state(self):
         #stalled
         if self._torrent.state == "stalledDL":
-            return"<b>Torrent </b>\n<code>📂: {}</code>\nis stalled(waiting for connection 🚥) temporarily...".format(self._torrent.name)
+            return"<b>Torrent </b>\n<code>📂 {}</code>\nis stalled(waiting for connection 🚥) temporarily...".format(self._torrent.name)
         #meta stage
         elif self._torrent.state == "metaDL":
             return  "Getting metadata for {} - {}".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
-        elif self._torrent.state == "<b>📥 Downloading</b>" or self._torrent.state.lower().endswith("dl"):
+        elif self._torrent.state == "<b>📥 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠</b>" or self._torrent.state.lower().endswith("dl"):
             # kept for past ref
             return None
 
@@ -218,7 +218,7 @@ class ARTask(Status):
         except:
             pass
 
-        msg = "<b>════╡ Downloading 📥 ╞════</b>\n\n<code>{}</code>\n".format(
+        msg = "<b>📥 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠</b>\n\n<code>{}</code>\n".format(
             downloading_dir_name
             )
         msg += "<b>🔻 Down:</b> {}| <b>🔺 Up:</b> {}\n".format(
@@ -262,7 +262,7 @@ class ARTask(Status):
                 self._gid,
                 self._omess.sender_id
             )
-            await self._message.edit(msg,parse_mode="html",buttons=[KeyboardButtonCallback("cancel direct leech",data=data.encode("UTF-8"))]) 
+            await self._message.edit(msg,parse_mode="html",buttons=[KeyboardButtonCallback("Cancel Direct Leech",data=data.encode("UTF-8"))]) 
 
         except MessageNotModifiedError as e:
             torlog.debug("{}".format(e))
