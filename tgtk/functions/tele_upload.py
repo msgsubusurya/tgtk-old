@@ -81,7 +81,7 @@ async def upload_handel(path,message,from_uid,files_dict,job_id=0,force_edit=Fal
             if updb.get_cancel_status(message.chat_id,message.id):
                 task.cancel = True
                 await task.set_inactive()
-                await message.edit("`{}` - Cancelled by user.".format(message.text),buttons=None)
+                await message.edit("{} \n\n **🚯 Cancelled by user.**".format(message.text),buttons=None)
             else:
                 await message.edit(buttons=None)
             updb.deregister_upload(message.chat_id,message.id)
@@ -164,7 +164,7 @@ async def upload_handel(path,message,from_uid,files_dict,job_id=0,force_edit=Fal
                 if updb.get_cancel_status(message.chat_id,message.id):
                     task.cancel = True
                     await task.set_inactive()
-                    await message.edit("`{}` - Cancelled By user.".format(message.text),buttons=None)
+                    await message.edit("{} \n\n **🚯 Cancelled by user.**".format(message.text),buttons=None)
                 else:
                     await message.edit(buttons=None)
                 updb.deregister_upload(message.chat_id,message.id)
@@ -207,7 +207,7 @@ async def upload_handel(path,message,from_uid,files_dict,job_id=0,force_edit=Fal
                 if updb.get_cancel_status(message.chat_id,message.id):
                     task.cancel = True
                     await task.set_inactive()
-                    await message.edit("`{}` - Cancelled By user.".format(message.text),buttons=None)
+                    await message.edit("{} \n\n **🚯 Cancelled by user.**".format(message.text),buttons=None)
                 else:
                     await message.edit(buttons=None)
                 updb.deregister_upload(message.chat_id,message.id)
