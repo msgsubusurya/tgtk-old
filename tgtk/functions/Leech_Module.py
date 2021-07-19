@@ -277,7 +277,7 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False, prev_msg=None
         else:
             urls = msg.raw_text
             url = msg.raw_text
-            torlog.info("aria2 is downloading:\n{}".format(urls))
+            torlog.info("Aria2 is Downloading:\n{}".format(urls))
             rmsg = await omess.reply("**⏳ Processing the Link...**")
             await aio.sleep(1)
 
