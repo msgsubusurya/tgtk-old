@@ -425,7 +425,7 @@ async def handle_ext_zip(path, rmess, omess):
             return ext_path
 
 async def errored_message(e, reason):
-    msg = f"<a href='tg://user?id={e.sender_id}'>completed.\n</a>\ndownload failed."
+    msg = f"<a href='tg://user?id={e.sender_id}'>completed.\n</a>\n❌ ᴅᴏᴡɴʟᴏᴀᴅ ꜰᴀɪʟᴇᴅ."
     if reason is not None:
         await reason.reply(msg, parse_mode="html")
     else:
