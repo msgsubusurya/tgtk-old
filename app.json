@@ -97,7 +97,7 @@
     {
       "plan": "heroku-postgresql",
       "options": {
-        "version": "10"
+        "version": "14"
       }
     }
   ]
